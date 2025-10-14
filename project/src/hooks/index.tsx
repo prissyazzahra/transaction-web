@@ -29,7 +29,7 @@ export const useApp = () => {
       setSuccessMessage("Successfully created an account with ID " + res?.data?.account_id + '!')
       handleCloseCreateAccountModal()
     }).catch((err) => {
-      const { data } = err?.response
+      const { data } = err.response
       if (data.includes('cannot unmarshal')) {
         setErrorCreateAccount("Unexpected error when creating account.")
       }
@@ -43,7 +43,7 @@ export const useApp = () => {
     return await axios.get(url).then((res) => {
       setAccount(res?.data)
     }).catch((err) => {
-      const { data } = err?.response
+      const { data } = err.response
 
       if (data.includes('invalid syntax')) {
         setErrorRetrieveAccount('Please enter a valid account ID.')

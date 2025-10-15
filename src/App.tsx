@@ -1,4 +1,3 @@
-import './App.css'
 import { useApp } from './hooks'
 import { Button, Modal, InputNumber, Input, Form } from 'antd'
 import { currencyFormatter } from './utils'

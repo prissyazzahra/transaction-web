@@ -9,6 +9,7 @@
 }
 
 .container {
+  text-align: center;
   padding: 16px;
   width: 100%;
 }
@@ -62,6 +63,7 @@
 body {
   margin: 0;
   display: flex;
+  justify-content: center;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;

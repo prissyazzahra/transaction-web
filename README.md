@@ -9,7 +9,8 @@ A simple React web app that simulates **bank account management**, allowing user
 - Create an account with an initial balance  
 - Retrieve an account’s balance by ID  
 - Transfer funds between accounts
-- Simple, responsive UI with included form validation using Ant Design and SCSS
+- Simple UI using Ant Design and SCSS
+- Form validation and error handling included
 - Built with React 19 + Vite for a fast development experience  
 
 ---
@@ -30,8 +31,8 @@ A simple React web app that simulates **bank account management**, allowing user
 
 - Balances use **SGD (Singapore Dollars)**  
 - API requests are proxied to `/api` (see `vite.config.ts`) for security
-- Maximum 17 digit initial balance for account creation
-- Account ID uses randomly generated 3 digit number
+- Maximum 17-digit initial balance for account creation
+- Account IDs are randomly generated 3 digit numbers
 
 ---
 
@@ -46,7 +47,7 @@ npm install
 ```bash
 npm run dev
 ```
-Then open `localhost:5137`. Please make sure your **backend is running** before starting the project.
+Then open `localhost:5137` in your browser. Please make sure your **backend is running** before starting the project.
 
 ## Folder Structure
 src/
@@ -55,7 +56,7 @@ src/
  
  ├── utils/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Utility functions (formatter)
  
- ├── types/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Custom typing
+ ├── types/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Custom TypeScript typing
  
  ├── styles/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# SCSS for styling
  

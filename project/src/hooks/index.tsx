@@ -2,10 +2,9 @@ import axios from "axios"
 import { useState } from "react"
 import type { IAccount } from "../types"
 import { currencyFormatter } from "../utils"
+import { Form } from "antd"
 
 export const useApp = () => {
-  const [initialBalance, setInitialBalance] = useState<number>(0)
-  const [currentId, setCurrentId] = useState<number>(0)
   const [modalCreateAccount, setModalCreateAccount] = useState<boolean>(false)
   const [modalRetrieveAccount, setModalRetrieveAccount] = useState<boolean>(false)
   const [modalTransfer, setModalTransfer] = useState<boolean>(false)
@@ -14,12 +13,16 @@ export const useApp = () => {
   const [successMessage, setSuccessMessage] = useState<string>("")
   const [errorRetrieveAccount, setErrorRetrieveAccount] = useState<string>("")
   const [account, setAccount] = useState<IAccount>()
-  const [sourceId, setSourceId] = useState<number>(0)
-  const [destinationId, setDestinationId] = useState<number>(0)
-  const [amount, setAmount] = useState<number>(0)
+
+  const [transferForm] = Form.useForm()
+  const [createForm] = Form.useForm()
+  const [retrieveForm] = Form.useForm()
   
   const handleCreateAccount = async () => {
     const url = '/api/accounts'
+    const values = await createForm.validateFields()
+    const { initialBalance } = values
+
     if (initialBalance < 0 || initialBalance.toString().length > 17) return setErrorCreateAccount('Please enter a valid balance.')
     const payload = {
       account_id: Math.floor(Math.random() * (999 - 1 + 1)) + 1,
@@ -32,11 +35,16 @@ export const useApp = () => {
       const { data } = err.response
       if (data.includes('cannot unmarshal')) {
         setErrorCreateAccount("Unexpected error when creating account.")
+      } else {
+        setErrorCreateAccount(data)
       }
     })
   }
 
   const getAccountBalance = async () => {
+    const values = await retrieveForm.validateFields()
+    const { currentId } = values
+
     const url = '/api/accounts/' + currentId
     if (currentId === 0) return setErrorRetrieveAccount('Please enter an account ID.')
     handleResetRetrieve()
@@ -55,13 +63,17 @@ export const useApp = () => {
 
   const handleTransfer = async () => {
     const url = '/api/transactions'
+    const values = await transferForm.validateFields()
+    const { sourceId, destinationId, amount } = values
+  
     const payload = {
-      source_account_id: sourceId,
-      destination_account_id: destinationId,
-      amount,
+      source_account_id: values.sourceId,
+      destination_account_id: values.destinationId,
+      amount: values.amount,
     }
     
     if (amount < 1) return setErrorTransfer('Minimum amount for transfer is SGD$1')
+    else if (sourceId === destinationId) return setErrorRetrieveAccount("Can't transfer to the same account.")
     return await axios.post(url, payload).then(() => {
       setModalTransfer(false)
       setSuccessMessage('Successfully transferred ' + currencyFormatter(amount) + " to Account ID " + destinationId + " from Account ID " + sourceId)
@@ -73,25 +85,22 @@ export const useApp = () => {
 
   const handleResetRetrieve = () => {
     setAccount(undefined)
+    retrieveForm.resetFields()
     setErrorRetrieveAccount("")
   }
 
   const handleCloseCreateAccountModal = () => {
     setErrorCreateAccount("")
     setModalCreateAccount(false)
-    setInitialBalance(0)
+    createForm.resetFields()
   }
 
   const handleResetTransfer = () => {
-    setSourceId(0)
-    setDestinationId(0)
-    setAmount(0)
+    transferForm.resetFields()
     setErrorTransfer("")
   }
 
   return {
-    setInitialBalance,
-    setCurrentId,
     modalCreateAccount,
     setModalCreateAccount,
     modalRetrieveAccount,
@@ -105,12 +114,13 @@ export const useApp = () => {
     handleResetRetrieve,
     setAccount,
     successMessage,
-    setSourceId,
-    setDestinationId,
-    setAmount,
     errorTransfer,
     modalTransfer,
     setModalTransfer,
     handleTransfer,
+    handleResetTransfer,
+    transferForm,
+    createForm,
+    retrieveForm
   }
 }

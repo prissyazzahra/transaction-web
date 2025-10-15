@@ -9,8 +9,7 @@ A simple React web app that simulates **bank account management**, allowing user
 - Create an account with an initial balance  
 - Retrieve an account’s balance by ID  
 - Transfer funds between accounts
-- Simple, responsive UI using Ant Design and SCSS
-- Form validation and 
+- Simple, responsive UI with included form validation using Ant Design and SCSS
 - Built with React 19 + Vite for a fast development experience  
 
 ---
@@ -51,11 +50,17 @@ Then open `localhost:5137`. Please make sure your **backend is running** before 
 
 ## Folder Structure
 src/
- ├── hooks/           # Custom hooks
- ├── utils/           # Utility functions (formatter)
- ├── styles/          # SCSS for styling
- ├── App.tsx          # App component
- └── main.tsx         # Entrypoint
+
+ ├── hooks/ &nbsp;&nbsp;&nbsp;&nbsp;# Custom hooks
+ 
+ ├── utils/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Utility functions (formatter)
+ 
+ ├── styles/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# SCSS for styling
+ 
+ ├── App.tsx &nbsp;&nbsp;&nbsp;&nbsp;# App component
+ 
+ └── main.tsx &nbsp;&nbsp;&nbsp;# Entrypoint
+ 
 
 
 

@@ -55,6 +55,8 @@ src/
  
  ├── utils/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Utility functions (formatter)
  
+ ├── types/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Custom typing
+ 
  ├── styles/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# SCSS for styling
  
  ├── App.tsx &nbsp;&nbsp;&nbsp;&nbsp;# App component
